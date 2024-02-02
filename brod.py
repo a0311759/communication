@@ -3,7 +3,6 @@ import os
 import streamlit as st
 import sqlite3
 
-UPLOADS_DIR = "uploads"  # Directory to store uploaded files
 
 def create_table():
     conn = sqlite3.connect("messages.db")
@@ -33,23 +32,6 @@ def get_messages():
     conn.close()
     return messages
 
-def save_uploaded_file(uploaded_file):
-    file_path = os.path.join(UPLOADS_DIR, uploaded_file.name)
-    with open(file_path, "wb") as file:
-        file.write(uploaded_file.getvalue())
-    return file_path
-
-def upload_files():
-    file_types = ["js", "html", "css", "java", "rs", "py", "png", "jpg", "c", "cpp", "db", "csv", "txt", "xlsx", "xls", "ppt"]
-    uploaded_files = st.file_uploader("Submit Files or Directories to Admin", type=file_types, accept_multiple_files=True, key="file_uploader")
-
-    if uploaded_files:
-        for uploaded_file in uploaded_files:
-            
-
-            # Save the uploaded file to internal storage
-            file_path = save_uploaded_file(uploaded_file)
-
             
 
 
@@ -59,9 +41,6 @@ def main():
 
     # Create table if it doesn't exist
     create_table()
-
-    # Create uploads directory if it doesn't exist
-    os.makedirs(UPLOADS_DIR, exist_ok=True)
 
     # Get user input for the key
     key_input = st.empty()
