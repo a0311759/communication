@@ -41,7 +41,7 @@ def main():
     key_input = st.empty()
     key = key_input.text_input("Enter the key:")
 
-    if key == "admin_key" or key == "user_key":
+    if key == "yiam_" or key == "Hind@1":
         show_dashboard()
         key_input.empty()
         show_chat_interface(key)
