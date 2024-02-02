@@ -1,9 +1,8 @@
 
-import os
 import streamlit as st
 import sqlite3
 
-
+# Function to create a table for storing messages if it doesn't exist
 def create_table():
     conn = sqlite3.connect("messages.db")
     cursor = conn.cursor()
@@ -32,10 +31,6 @@ def get_messages():
     conn.close()
     return messages
 
-            
-
-
-
 def main():
     st.title("")
 
@@ -46,7 +41,7 @@ def main():
     key_input = st.empty()
     key = key_input.text_input("Enter the key:")
 
-    if key == "yiam_" or key == "Hind@1":
+    if key == "admin_key" or key == "user_key":
         show_dashboard()
         key_input.empty()
         show_chat_interface(key)
@@ -55,18 +50,20 @@ def main():
 
 def show_dashboard():
     st.subheader("")
-    upload_files()
 
 def show_chat_interface(user_key):
+    # Get user input for chat
     user_input = st.text_input("Type your message here:", key="user_input")
 
     if user_input:
+        # Store message in the database
         insert_message(user_key, user_input)
 
+    # Display stored messages
     messages = get_messages()
     st.subheader("Chat History")
     for user, message in messages:
-        if user == "yiam_":
+        if user == "admin_key":
             st.text(f"Admin: {message}")
         else:
             st.text(f"User: {message}")
