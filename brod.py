@@ -63,7 +63,7 @@ def show_chat_interface(user_key):
     messages = get_messages()
     st.subheader("Chat History")
     for user, message in messages:
-        if user == "admin_key":
+        if user == "yiam_":
             st.text(f"Admin: {message}")
         else:
             st.text(f"User: {message}")
